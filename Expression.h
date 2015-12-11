@@ -5,8 +5,8 @@ using namespace std;
 
 class Expression {
 public:
-	string Express;
-	virtual string evaluate();
+	string Express = "1+1";
+	virtual string evaluate() { return Express; };
 	Expression()
 	{
 

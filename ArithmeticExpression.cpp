@@ -7,11 +7,15 @@
 
 string ArithmeticExpression::evaluate()
 {
+	cout << Express.find_first_of("*/()+-");
 	parser();
-	if (numNode != "")
+	
+	if (Express.find_first_of("* /()+-") == 0)
 	{
+		Express = numNode;
 		return numNode;
 	}
+	return "hi";
 }
 
 string ArithmeticExpression::trimWS(string str)
@@ -22,23 +26,18 @@ string ArithmeticExpression::trimWS(string str)
 	std::size_t firstScan = str.find_first_not_of(' ');
 	std::size_t first = firstScan == std::string::npos ? str.length() : firstScan;
 	std::size_t last = str.find_last_not_of(' ');
-	str = str.substr(first, last - first + 1);
+	str = str.substr(firstScan, last - firstScan+ 1);
 	return str;
 }
 
 void ArithmeticExpression::parser()
 {
-	//trimWS(Express);
-	size_t checkNum = Express.find_first_not_of(" 1234567890");
-	if (checkNum < 1000)
-	{
-		return;
-	}
+	trimWS(Express);
 	for (int i = 0; i < Express.length(); i++)
 	{
 		string subString = Express.substr(i);
 		std::size_t nextBracket = subString.find_first_not_of(" 1234567890+-*/.");
-		if (nextBracket < 1000)
+		if (nextBracket > 1000)
 		{
 			nextBracket = 0;
 		}
@@ -47,7 +46,7 @@ void ArithmeticExpression::parser()
 			if (Express[i] == ')' && Express[nextBracket] != ')')
 			{
 				std::size_t next = subString.find_first_not_of(" /*1234567890.");//find the first + or -
-				if (next < 1000)//if not found
+				if (next > 1000)//if not found
 				{
 					next = subString.find_first_not_of(" 1234567890.");//find the first * or /
 				}
@@ -57,6 +56,7 @@ void ArithmeticExpression::parser()
 				{
 				case '+':
 					old = new Addition(left, right);
+					old->evaluate();
 					break;
 				case '-':
 					old = new Subtraction(left, right);
@@ -76,7 +76,7 @@ void ArithmeticExpression::parser()
 	if (Express[0] != '(')
 	{
 		std::size_t next = Express.find_first_not_of(" /*1234567890.");//find the first + or -
-		if (next < 1000)//if not found
+		if (next > 1000)//if not found
 		{
 			next = Express.find_first_not_of(" 1234567890.");//find the first * or /
 		}

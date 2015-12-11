@@ -8,8 +8,14 @@ void main()
 	string enter = "hi";
 	while (enter == "hi")
 	{
-		Expression *x = new Expression("1+1");
-		cout << x->evaluate();
+		Expression *x;
+		Expression *a = new Expression("3.2+1");
+		Expression *b = new Expression("1");
+		Addition a1(a,b);
+		ArithmeticExpression ae1("2 + 2");
+		
+		cout << a1.evaluate() << endl;
+		cout << ae1.evaluate();
 		//cout << pos;
 		cin >> enter;
 	}

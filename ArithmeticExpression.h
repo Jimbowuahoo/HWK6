@@ -22,6 +22,6 @@ public:
 	ArithmeticExpression() {};
 	ArithmeticExpression(string num)
 	{
-		numNode = num;
+		Express = num;
 	}
 };
